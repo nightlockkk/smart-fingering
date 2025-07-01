@@ -23,7 +23,7 @@ for lag in range(1, numLagFeatures + 1):
     trainingdf[f'MIDI_lag{lag}'] = trainingdf['MIDI'].shift(lag).fillna(0) 
     trainingdf[f'linger_lag{lag}'] = trainingdf['linger'].shift(lag).fillna(0)
 
-trainingdf = trainingdf.dropna() #make sure other data is unaffected
+trainingdf = trainingdf.dropna() 
 trainingdf['time gap'] = trainingdf['time'].diff().fillna(10)
 
 def reshape(data, steps, targetCols, training): #steps is the windowing size over the examination of temporal dependencies. Notes 
@@ -31,7 +31,7 @@ def reshape(data, steps, targetCols, training): #steps is the windowing size ove
     targets = []
 
     for i in range(len(data)-steps+1):
-        seq = data.iloc[i:i+steps, :].values #sliding window over all data
+        seq = data.iloc[i:i+steps, :].values 
 
         if training:
             target = data.iloc[i+steps-1][targetCols].values
@@ -43,7 +43,6 @@ def reshape(data, steps, targetCols, training): #steps is the windowing size ove
         return np.array(sequences), np.array(targets)
     return np.array(sequences)
 
-#reshaping time series data for LSTM whilst keeping temporal order
 x, y = reshape(trainingdf, 5, fingeringColumns, True) 
 
 model = Sequential([
@@ -59,7 +58,7 @@ model.summary()
 
 newData = pretty_midi.PrettyMIDI("filename.mid") #name.mid
 newdf = pd.DataFrame(columns=['Time', 'time_diff', 'MIDI', 'linger'])
-def incoDataProcessing(): #data processing for the new data applied to the model
+def incoDataProcessing(): 
     possibleLinger = []
     for instrument in newData.instruments: #only instrument should be piano anyway
         for note in instrument.notes:
