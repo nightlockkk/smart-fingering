@@ -7,7 +7,7 @@ from tensorflow.python.keras.layers import LSTM, Dense, Dropout
 
 import pretty_midi
 
-file_path = "C:/Users/Rhea/Desktop/Python" #change
+file_path = "C:/Users/Rhea/Python" #change
 trainingData = np.loadtxt(file_path) #data is hand crafted into a list format
 trainingdf = pd.DataFrame(trainingData)
 
