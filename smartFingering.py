@@ -8,7 +8,7 @@ from tensorflow.python.keras.layers import LSTM, Dense, Dropout
 import pretty_midi
 
 file_path = "C:/Users/USER/Desktop/Python" #change
-trainingData = np.loadtxt(file_path)
+trainingData = np.loadtxt(file_path) #data is hand crafted into a list format
 trainingdf = pd.DataFrame(trainingData)
 
 #training data processing
@@ -20,8 +20,8 @@ for col in fingeringColumns:
         trainingdf[f'{col}_lag{lag}'] = trainingdf[col].shift(lag).fillna(0) #for fingering columns
 
 for lag in range(1, numLagFeatures + 1):
-    trainingdf[f'MIDI_lag{lag}'] = trainingdf['MIDI'].shift(lag).fillna(0) #for MIDI column
-    trainingdf[f'linger_lag{lag}'] = trainingdf['linger'].shift(lag).fillna(0) #for linger column
+    trainingdf[f'MIDI_lag{lag}'] = trainingdf['MIDI'].shift(lag).fillna(0) 
+    trainingdf[f'linger_lag{lag}'] = trainingdf['linger'].shift(lag).fillna(0)
 
 trainingdf = trainingdf.dropna() #make sure other data is unaffected
 trainingdf['time gap'] = trainingdf['time'].diff().fillna(10)
